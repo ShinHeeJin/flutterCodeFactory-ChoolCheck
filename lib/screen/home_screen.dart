@@ -46,18 +46,18 @@ class HomeScreen extends StatelessWidget {
       ),
     );
   }
-}
 
-AppBar renderAppBar() {
-  return AppBar(
-    centerTitle: true,
-    title: const Text(
-      "오늘도 출첵",
-      style: TextStyle(
-        color: Colors.blue,
-        fontWeight: FontWeight.w700,
+  AppBar renderAppBar() {
+    return AppBar(
+      centerTitle: true,
+      title: const Text(
+        "오늘도 출첵",
+        style: TextStyle(
+          color: Colors.blue,
+          fontWeight: FontWeight.w700,
+        ),
       ),
-    ),
-    backgroundColor: Colors.white,
-  );
+      backgroundColor: Colors.white,
+    );
+  }
 }
