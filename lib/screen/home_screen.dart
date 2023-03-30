@@ -65,7 +65,44 @@ class HomeScreen extends StatelessWidget {
                       height: 20.0,
                     ),
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () async {
+                        final curPosition =
+                            await Geolocator.getCurrentPosition();
+                        final distance = Geolocator.distanceBetween(
+                          curPosition.latitude,
+                          curPosition.longitude,
+                          companyLatLng.latitude,
+                          companyLatLng.longitude,
+                        );
+                        bool canCheck = distance < 200;
+                        // ignore: use_build_context_synchronously
+                        showDialog(
+                          context: context,
+                          builder: (_) {
+                            return AlertDialog(
+                              title: const Text("출근하기"),
+                              content: Text(
+                                canCheck ? "출근 하시겠습니까?" : "출근할 수 없는 위치입니다.",
+                              ),
+                              actions: [
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.of(context).pop(false);
+                                  },
+                                  child: const Text("취소"),
+                                ),
+                                if (canCheck)
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.of(context).pop(true);
+                                    },
+                                    child: const Text("출근하기"),
+                                  ),
+                              ],
+                            );
+                          },
+                        );
+                      },
                       child: const Text("출근하기!"),
                     ),
                   ],
