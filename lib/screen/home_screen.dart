@@ -8,6 +8,11 @@ class HomeScreen extends StatelessWidget {
     127.092,
   );
 
+  static const Marker marker = Marker(
+    markerId: MarkerId('compnay'),
+    position: companyLatLng,
+  );
+
   const HomeScreen({super.key});
 
   @override
@@ -24,8 +29,37 @@ class HomeScreen extends StatelessWidget {
             );
           }
           if (snapshot.data == "위치 권한이 허가 되었습니다.") {
-            return const GeoLocationWidget(
-              companyLatLng: companyLatLng,
+            return Column(
+              children: [
+                Expanded(
+                  flex: 2,
+                  child: GoogleMap(
+                    initialCameraPosition: const CameraPosition(
+                      target: companyLatLng,
+                      zoom: 18,
+                    ),
+                    markers: {marker},
+                  ),
+                ),
+                Expanded(
+                    child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Icon(
+                      Icons.timelapse_outlined,
+                      color: Colors.blue,
+                      size: 50.0,
+                    ),
+                    const SizedBox(
+                      height: 20.0,
+                    ),
+                    ElevatedButton(
+                      onPressed: () {},
+                      child: const Text("출근하기!"),
+                    ),
+                  ],
+                ))
+              ],
             );
           }
 
@@ -66,50 +100,6 @@ class HomeScreen extends StatelessWidget {
         ),
       ),
       backgroundColor: Colors.white,
-    );
-  }
-}
-
-class GeoLocationWidget extends StatelessWidget {
-  const GeoLocationWidget({
-    super.key,
-    required this.companyLatLng,
-  });
-
-  final LatLng companyLatLng;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Expanded(
-          flex: 2,
-          child: GoogleMap(
-            initialCameraPosition: CameraPosition(
-              target: companyLatLng,
-              zoom: 18,
-            ),
-          ),
-        ),
-        Expanded(
-            child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Icon(
-              Icons.timelapse_outlined,
-              color: Colors.blue,
-              size: 50.0,
-            ),
-            const SizedBox(
-              height: 20.0,
-            ),
-            ElevatedButton(
-              onPressed: () {},
-              child: const Text("출근하기!"),
-            ),
-          ],
-        ))
-      ],
     );
   }
 }
