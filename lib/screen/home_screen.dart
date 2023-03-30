@@ -13,6 +13,15 @@ class HomeScreen extends StatelessWidget {
     position: companyLatLng,
   );
 
+  static final Circle circle = Circle(
+    circleId: const CircleId("choolCheckCircle"),
+    center: companyLatLng,
+    fillColor: Colors.blue.withOpacity(0.5),
+    radius: 100,
+    strokeColor: Colors.blue,
+    strokeWidth: 1,
+  );
+
   const HomeScreen({super.key});
 
   @override
@@ -36,9 +45,11 @@ class HomeScreen extends StatelessWidget {
                   child: GoogleMap(
                     initialCameraPosition: const CameraPosition(
                       target: companyLatLng,
-                      zoom: 18,
+                      zoom: 17,
                     ),
                     markers: {marker},
+                    circles: {circle},
+                    myLocationEnabled: true,
                   ),
                 ),
                 Expanded(
